@@ -8,7 +8,15 @@ import pickle
 # for extracting the invoice number from the file_name
 import re
 
-todays_working_folder = td.get_todays_folder()
+def pickle_folder():
+  '''
+  Checks if there s a folder named pickle. If theres not
+  it creates one.
+  '''
+  todays_working_folder = td.get_todays_folder()
+  directories = os.listdir(todays_working_folder)
+  if "pickle" not in directories:
+    os.mkdir(todays_working_folder + '\\' + 'pickle')
 
 # delete all files in capi/innova
 #capi_innova = 'c:\\Users\\rd\\Desktop\\capi\\innova\\'
@@ -36,7 +44,7 @@ class Innova_xls_files(object):
   def change_file_names(self):
     '''
        Changes a file name type like 
-       FACTURA Nº100028 ALDI DOS HERMANAS,S.L.  CARRITO COCINA 1200 UDS
+       FACTURA Nï¿½100028 ALDI DOS HERMANAS,S.L.  CARRITO COCINA 1200 UDS
        to 100028, so that it makes less mistakes manipulating long names.
        Returns a dictionary with the original name as key and the new name as value
     '''
@@ -90,6 +98,7 @@ class Innova_xls_files(object):
 #print(loaded_dict)
 
 if __name__ == '__main__':
+  todays_working_folder = td.get_todays_folder()
   root = todays_working_folder
   pattern = "factura*.xls"
   name_dict = dict()
@@ -109,4 +118,5 @@ if __name__ == '__main__':
    
   #excel_files.print_file_names()
   #excel_files.list_all_files_and_folders()
-  excel_files.copy_xls_files_to_work_dir()
+  #excel_files.copy_xls_files_to_work_dir()
+  pickle_folder()
